@@ -34,14 +34,14 @@ how infrastructure, networking, automation, and version control work together.
 
 ## Repository structure
 
-├── main.tf # Terraform configuration and backend
-├── vpc.tf # VPC and subnet definitions
-├── routes.tf # Route tables and gateways
-├── security.tf # Security groups
-├── instances.tf # EC2 instances
-├── variables.tf # Reusable input variables
-├── outputs.tf # Exported infrastructure values
-└── user_data.sh # EC2 bootstrapping script
+main.tf # Terraform configuration and backend
+vpc.tf # VPC and subnet definitions
+routes.tf # Route tables and gateways
+security.tf # Security groups
+instances.tf # EC2 instances
+variables.tf # Reusable input variables
+outputs.tf # Exported infrastructure values
+user_data.sh # EC2 bootstrapping script
 
 ---
 
