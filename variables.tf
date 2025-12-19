@@ -39,3 +39,8 @@ variable "key_name" {
   type        = string
   default     = "wsl-cloudstation-key"
 }
+
+variable "ssh_public_key_path" {
+  description = "Path to SSH public key used for EC2 access"
+  type        = string
+}

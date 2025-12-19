@@ -1,7 +1,7 @@
 # AWS Key Pair
 resource "aws_key_pair" "wsl" {
   key_name   = var.key_name
-  public_key = file("${path.module}/id_rsa.pub")
+  public_key = file(var.ssh_public_key_path)
 }
 
 # Public Server
