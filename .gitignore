@@ -6,3 +6,7 @@ crash.log
 terraform.tfvars
 *.tfvars
 *.tfvars.json
+*.pub
+id_rsa
+id_rsa.pub
+id_ed25519*
