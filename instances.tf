@@ -11,7 +11,8 @@ resource "aws_instance" "vm" {
   subnet_id              = aws_subnet.public.id
   vpc_security_group_ids = [aws_security_group.web_sg.id]
   key_name               = aws_key_pair.wsl.key_name
-
+  user_data = file("${path.module}/scripts/public-userdata.sh")
+  
   tags = {
     Name = "cloud-lab-instance"
   }
