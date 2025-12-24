@@ -1,14 +1,19 @@
-output "public_ec2_public_ip" {
-  description = "Public IP of the public EC2 instance"
-  value       = aws_instance.vm.public_ip
+output "bastion_public_ip" {
+  description = "Public IP of bastion host - used as SSH jumpbox"
+  value       = aws_instance.bastion.public_ip
 }
 
-output "public_ec2_private_ip" {
-  description = "Private IP of the public EC2 instance"
-  value       = aws_instance.vm.private_ip
+output "web_public_ip" {
+  description = "Public IP of the web server"
+  value       = aws_instance.web.public_ip
 }
 
-output "private_ec2_private_ip" {
+output "web_private_ip" {
+  description = "Private IP of the web server"
+  value       = aws_instance.web.private_ip
+}
+
+output "private_private_ip" {
   description = "Private IP of the private EC2 instance"
-  value       = aws_instance.private_vm.private_ip
+  value       = aws_instance.private.private_ip
 }

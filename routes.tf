@@ -30,7 +30,7 @@ resource "aws_nat_gateway" "nat" {
 }
 
 # Private Route Table
-# If trying to reach any IP outside the VPV - Send traffic to the NAT gateway next
+# If trying to reach any IP outside the VPC - Send traffic to the NAT gateway next
 resource "aws_route_table" "private_rt" {
   vpc_id = aws_vpc.lab.id
 

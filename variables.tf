@@ -44,3 +44,8 @@ variable "ssh_public_key_path" {
   description = "Path to SSH public key used for EC2 access"
   type        = string
 }
+
+variable "my_ip_cidr" {
+  description = "My public IP in CIDR format"
+  type        = string
+}
