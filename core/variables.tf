@@ -52,15 +52,15 @@ variable "my_ip_cidr" {
 
 variable "web_private_ip" {
   description = "Static private IP for the web server"
-  type = string
+  type        = string
 }
 
 variable "bastion_private_ip" {
   description = "Static private IP for the bastion host"
-  type = string
+  type        = string
 }
 
 variable "private_private_ip" {
   description = "Static private IP for the private EC2 instance"
-  type = string
-}# actions test
+  type        = string
+} # actions test
