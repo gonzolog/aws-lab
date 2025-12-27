@@ -63,4 +63,4 @@ variable "bastion_private_ip" {
 variable "private_private_ip" {
   description = "Static private IP for the private EC2 instance"
   type = string
-}
+}# actions test
