@@ -1,6 +1,6 @@
 output "bastion_public_ip" {
-  description = "Public IP of bastion host - used as SSH jumpbox"
-  value       = aws_instance.bastion.public_ip
+  description = "Persistent public IP of bastion - used as SSH jumpbox"
+  value       = data.aws_eip.bastion.public_ip
 }
 
 output "web_public_ip" {

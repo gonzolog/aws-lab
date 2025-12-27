@@ -11,6 +11,7 @@ resource "aws_instance" "bastion" {
   subnet_id              = aws_subnet.public.id
   vpc_security_group_ids = [aws_security_group.bastion_sg.id]
   key_name               = aws_key_pair.wsl.key_name
+  private_ip = var.bastion_private_ip
 
   tags = {
     Name = "cloud-lab-bastion"
@@ -26,6 +27,7 @@ resource "aws_instance" "web" {
   vpc_security_group_ids = [aws_security_group.web_sg.id]
   key_name               = aws_key_pair.wsl.key_name
   user_data              = file("${path.module}/scripts/public-userdata.sh")
+  private_ip = var.web_private_ip
 
   tags = {
     Name = "cloud-lab-web"
@@ -39,6 +41,7 @@ resource "aws_instance" "private" {
   subnet_id              = aws_subnet.private.id
   vpc_security_group_ids = [aws_security_group.private_sg.id]
   key_name               = aws_key_pair.wsl.key_name
+  private_ip = var.private_private_ip
 
   associate_public_ip_address = false
 
