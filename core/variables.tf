@@ -49,3 +49,18 @@ variable "my_ip_cidr" {
   description = "My public IP in CIDR format"
   type        = string
 }
+
+variable "web_private_ip" {
+  description = "Static private IP for the web server"
+  type = string
+}
+
+variable "bastion_private_ip" {
+  description = "Static private IP for the bastion host"
+  type = string
+}
+
+variable "private_private_ip" {
+  description = "Static private IP for the private EC2 instance"
+  type = string
+}
