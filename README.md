@@ -1,10 +1,8 @@
 # AWS Terraform Lab
 
-This repository is a hands-on Terraform lab designed to demonstrate
-infrastructure provisioning on AWS using modern best practices.
+This repository is a hands-on Terraform lab designed to demonstrate infrastructure provisioning on AWS using modern, real-world best practices.
 
-The focus of this project is not just resource creation, but understanding
-how infrastructure, networking, automation, and version control work together.
+The focus of this project is not just creating AWS resources, but understanding how **infrastructure design, networking, automation, state management, and version control** work together in a professional environment.
 
 ---
 
@@ -13,61 +11,52 @@ how infrastructure, networking, automation, and version control work together.
 - AWS VPC design with public and private subnets
 - Internet Gateway and NAT Gateway configuration
 - EC2 provisioning in public and private networks
+- Bastion host (jump box) pattern for secure SSH access
+- Persistent Elastic IP management
 - Security group design for controlled access
 - Terraform remote state using S3
 - State locking using DynamoDB
+- Separation of persistent and ephemeral infrastructure
 - Feature-branch Git workflow for infrastructure changes
 - Incremental, testable infrastructure development
 
 ---
 
-## Architecture overview    
+## Architecture overview
 
-- One VPC
+- One VPC (`10.0.0.0/16`)
 - One public subnet (internet-facing)
 - One private subnet (outbound-only via NAT Gateway)
-- Public EC2 instance (used for application access)
+- Bastion host in the public subnet
+  - Uses a **persistent Elastic IP**
+  - Acts as the single SSH entry point
+- Public web EC2 instance (NGINX)
 - Private EC2 instance (no direct internet access)
-- Security groups controlling SSH and HTTP access
+- Static private IP assignments for internal consistency
+- Security groups enforcing:
+  - SSH access only via bastion
+  - HTTP access only where required
 
 ---
 
 ## Repository structure
 
-├── main.tf # Terraform configuration and backend
-├── vpc.tf # VPC and subnet definitions
-├── routes.tf # Route tables and gateways
-├── security.tf # Security groups
-├── instances.tf # EC2 instances
-├── variables.tf # Reusable input variables
-├── outputs.tf # Exported infrastructure values
-└── user_data.sh # EC2 bootstrapping script
-
----
-
-## Terraform state management
-
-- Terraform state is stored remotely in an S3 bucket
-- DynamoDB is used for state locking to prevent concurrent modifications
-- State backend is created outside Terraform as a bootstrap step
-
----
-
-## Workflow
-
-All infrastructure changes follow a feature-branch workflow:
-
-1. Create a feature branch for a single change
-2. Implement and test the change locally
-3. Run `terraform plan` and `terraform apply`
-4. Commit and push the branch
-5. Open a Pull Request and merge into `main`
-
-This mirrors real-world infrastructure workflows used in team environments.
-
----
-
-## Purpose
-
-This repository exists as a learning and demonstration project to build
-practical understanding of cloud infrastructure, Terraform, and DevOps workflows.
+```text
+aws-lab/
+├── foundation/              # Persistent infrastructure
+│   ├── main.tf              # Backend + provider config
+│   ├── outputs.tf           # EIP outputs
+│   └── terraform.tfstate    # Remote (S3)
+│
+├── core/                    # Ephemeral infrastructure
+│   ├── main.tf              # Backend + provider config
+│   ├── vpc.tf               # VPC and subnet definitions
+│   ├── routes.tf            # Route tables and gateways
+│   ├── security.tf          # Security groups
+│   ├── instances.tf         # EC2 instances
+│   ├── variables.tf         # Input variables
+│   ├── outputs.tf           # Exported values
+│   └── scripts/             # EC2 user_data scripts
+│
+├── README.md
+└── .gitignore
