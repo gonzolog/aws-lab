@@ -1,7 +1,11 @@
-# AWS Key Pair - Local SSH public key
+# AWS Key Pair
+data "aws_ssm_parameter" "ssh_public_key" {
+  name = "/lab/aws-lab/ssh/public_key"
+}
+
 resource "aws_key_pair" "wsl" {
   key_name   = var.key_name
-  public_key = file(var.ssh_public_key_path)
+  public_key = data.aws_ssm_parameter.ssh_public_key.value
 }
 
 # Bastion Host (SSH entry point)
