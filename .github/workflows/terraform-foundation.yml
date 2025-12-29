@@ -13,6 +13,9 @@ permissions:
 jobs:
   terraform:
     runs-on: ubuntu-latest
+    env:
+      TF_VAR_my_ip_cidr: ${{ secrets.TF_VAR_my_ip_cidr }}
+
     defaults:
       run:
         shell: bash

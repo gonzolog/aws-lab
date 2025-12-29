@@ -40,11 +40,6 @@ variable "key_name" {
   default     = "wsl-cloudstation-key"
 }
 
-variable "ssh_public_key_path" {
-  description = "Path to SSH public key used for EC2 access"
-  type        = string
-}
-
 variable "my_ip_cidr" {
   description = "My public IP in CIDR format"
   type        = string
@@ -52,15 +47,18 @@ variable "my_ip_cidr" {
 
 variable "web_private_ip" {
   description = "Static private IP for the web server"
-  type = string
+  type        = string
+  default     = "10.0.1.20"
 }
 
 variable "bastion_private_ip" {
   description = "Static private IP for the bastion host"
-  type = string
+  type        = string
+  default     = "10.0.1.10"
 }
 
 variable "private_private_ip" {
   description = "Static private IP for the private EC2 instance"
-  type = string
+  type        = string
+  default     = "10.0.2.10"
 }
