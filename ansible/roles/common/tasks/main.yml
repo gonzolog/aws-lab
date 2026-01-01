@@ -1,0 +1,33 @@
+---
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install baseline packages
+  ansible.builtin.apt:
+    name:
+      - curl
+      - unzip
+      - htop
+      - ca-certificates
+      - fail2ban
+      - ufw
+    state: present
+
+# Firewall: allow SSH before enabling UFW
+- name: Allow SSH (OpenSSH) in UFW
+  community.general.ufw:
+    rule: allow
+    name: OpenSSH
+
+# Enable UFW non-interactively (prevents SSH prompt hang)
+- name: Enable UFW safely
+  ansible.builtin.command: ufw --force enable
+  changed_when: false
+
+- name: Ensure fail2ban is running
+  ansible.builtin.service:
+    name: fail2ban
+    state: started
+    enabled: true
