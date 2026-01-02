@@ -1,0 +1,8 @@
+---
+- name: Create marker file for private tier
+  ansible.builtin.copy:
+    dest: /etc/private-tier.txt
+    content: "Private tier configured by Ansible\n"
+    owner: root
+    group: root
+    mode: "0644"
