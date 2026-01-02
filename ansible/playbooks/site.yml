@@ -5,3 +5,24 @@
   gather_facts: true
   roles:
     - common
+
+- name: Tier configuration - Web
+  hosts: web
+  become: true
+  gather_facts: true
+  roles:
+    - web
+
+- name: Tier configuration - Private
+  hosts: private
+  become: true
+  gather_facts: true
+  roles:
+    - private
+
+- name: Tier configuration - Bastion
+  hosts: bastion
+  become: true
+  gather_facts: true
+  roles:
+    - bastion
