@@ -1,0 +1,8 @@
+---
+- name: Create marker file for bastion tier
+  ansible.builtin.copy:
+    dest: /etc/bastion-tier.txt
+    content: "Bastion tier configured by Ansible\n"
+    owner: root
+    group: root
+    mode: "0644"

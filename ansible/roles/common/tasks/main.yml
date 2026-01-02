@@ -22,7 +22,7 @@
     name: OpenSSH
 
 # Enable UFW non-interactively (prevents SSH prompt hang)
-- name: Enable UFW safely
+- name: Enable UFW firewall
   ansible.builtin.command: ufw --force enable
   changed_when: false
 
