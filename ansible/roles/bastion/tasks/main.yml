@@ -1,8 +1,25 @@
 ---
-- name: Create marker file for bastion tier
-  ansible.builtin.copy:
-    dest: /etc/bastion-tier.txt
-    content: "Bastion tier configured by Ansible\n"
-    owner: root
-    group: root
-    mode: "0644"
+- name: Ensure sshd hardening settings (no root, no password auth)
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    create: false
+    backrefs: false
+  loop:
+    - { regexp: '^#?PermitRootLogin\s+', line: 'PermitRootLogin no' }
+    - { regexp: '^#?PasswordAuthentication\s+', line: 'PasswordAuthentication no' }
+    - { regexp: '^#?PermitEmptyPasswords\s+', line: 'PermitEmptyPasswords no' }
+  notify: Restart SSH
+
+# Tighten UFW defaults on bastion
+- name: Set UFW default deny incoming
+  community.general.ufw:
+    direction: incoming
+    policy: deny
+
+- name: Set UFW default allow outgoing
+  community.general.ufw:
+    direction: outgoing
+    policy: allow
+    

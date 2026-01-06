@@ -1,0 +1,4 @@
+---
+api_private_ip: "10.0.2.10"
+api_private_port: 8080
+web_subnet_cidr: "10.0.1.0/24"

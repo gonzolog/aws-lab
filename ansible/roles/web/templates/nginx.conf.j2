@@ -1,0 +1,17 @@
+server {
+    listen {{ web_http_port }} default_server;
+    listen [::]:{{ web_http_port }} default_server;
+
+    root /var/www/html;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location /api {
+        proxy_pass http://{{ api_private_ip }}:{{ api_private_port }};
+        proxy_set_header Host $host;
+        proxy_set_header X-forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
