@@ -1,0 +1,13 @@
+[unit]
+Description=Private Application Service
+After=network.target
+
+[Service]
+Type=simple
+User=appuser
+WorkingDirectory=/home/appuser
+ExecStart=/usr/bin/python3 /home/appuser/app.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

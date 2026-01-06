@@ -15,16 +15,23 @@
       - ufw
     state: present
 
-# Firewall: allow SSH before enabling UFW
+# Always ensure SSH is allowed before enabling firewall
 - name: Allow SSH (OpenSSH) in UFW
   community.general.ufw:
     rule: allow
     name: OpenSSH
 
-# Enable UFW non-interactively (prevents SSH prompt hang)
-- name: Enable UFW firewall
+# Prevent hang when enabling UFW over SSH
+- name: Enable UFW safely
   ansible.builtin.command: ufw --force enable
-  changed_when: false
+  register: ufw_enable
+  changed_when: "'Firewall is active' in ufw_enable.stdout or 'Firewall is active' in ufw_enable.stderr"
+  failed_when: ufw_enable.rc != 0
+
+- name: Wait for SSH to return after UFW enable
+  ansible.builtin.wait_for_connection:
+    delay: 2
+    timeout: 60
 
 - name: Ensure fail2ban is running
   ansible.builtin.service:
